@@ -6,7 +6,7 @@ README
 What is MetaSyntactical/Mime?
 -----------------------------
 
-MetaSyntactical/Io is part of the MetaSyntactical PHP 5.3+ components library and
+MetaSyntactical/Mime is part of the MetaSyntactical PHP 5.3+ components library and
 provide a system independent implementation of the magic.mime MIMEtype detection.
 
 MetaSyntactical/Mime is based on the [Zend Framework proposal][1] for
@@ -36,9 +36,9 @@ Contributing
 
 COMING SOON
 MetaSyntactical/Mime is an open source project. If you'd like to contribute,
-please read the [Contributing Code][2] part of the documentation. If you're
+please read the [Contributing Code][3] part of the documentation. If you're
 submitting a pull request, please follow the guidelines in the
-[Submitting a Patch][3] section.
+[Submitting a Patch][4] section.
 
 [1]: http://framework.zend.com/wiki/x/9lI
 [2]: http://code.google.com/p/php-reader/
