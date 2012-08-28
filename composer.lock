@@ -1,0 +1,19 @@
+{
+    "hash": "d160df99007937fdc52a5102eafba052",
+    "packages": [
+        {
+            "package": "metasyntactical/io",
+            "version": "dev-master",
+            "source-reference": "b20aadb8c4c1e8bd750effb31642a99d2bbe6c4f",
+            "commit-date": "1345819391"
+        }
+    ],
+    "packages-dev": null,
+    "aliases": [
+
+    ],
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "metasyntactical/io": 20
+    }
+}
