@@ -27,14 +27,25 @@ class MagicTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
+        Magic::setDefaultMagicFile();
     }
 
-    public function testThatExpectedExceptionIsThrownIfProvidedMagicFileDoesNotExist()
+    public function testExpectedExceptionIsThrownIfProvidedMagicFileDoesNotExist()
     {
         $this->setExpectedException(
             'MetaSyntactical\\Mime\\Exception\\FileNotFoundException',
             'File does not exist or is not readable:'
         );
         new Magic('/notExistingDummyPath/magic');
+    }
+
+    public function testDefaultMagicFileIsUsedOnInitialization()
+    {
+        $this->setExpectedException(
+            'MetaSyntactical\\Mime\\Exception\\FileNotFoundException',
+            '/notExistingDummyPath/magic'
+        );
+        Magic::setDefaultMagicFile('/notExistingDummyPath/magic');
+        new Magic();
     }
 }

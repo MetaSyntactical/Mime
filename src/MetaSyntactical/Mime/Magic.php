@@ -53,7 +53,26 @@ final class Magic
     /**
      * @var string Magic Numbers data
      */
-    private $_magic;
+    private $magic;
+
+    /**
+     * @var string Path to default magic file
+     */
+    private static $defaultMagicFile;
+
+    /**
+     * Inject default magic file to be used on instantiating class.
+     *
+     * @param string $filePath path to the magic file to be used, defaults to shipped data file
+     * @throws Exception\FileNotFoundException if specified filePath does not exist or is not readable
+     */
+    public static function setDefaultMagicFile($filePath = null)
+    {
+        if (!is_null($filePath) && !file_exists($filePath)) {
+            throw new FileNotFoundException('File does not exist or is not readable: ' . $filePath);
+        }
+        self::$defaultMagicFile = $filePath;
+    }
 
     /**
      * Constructor.
@@ -65,15 +84,13 @@ final class Magic
      */
     public function __construct($filePath = null)
     {
-        if (is_null($filePath)) {
-            $filePath = __DIR__ . '/Data/magic';
-        }
+        $filePath = $filePath ?: self::$defaultMagicFile ?: __DIR__ . '/Data/magic';
         if (!file_exists($filePath)) {
             throw new FileNotFoundException('File does not exist or is not readable: ' . $filePath);
         }
 
         $reader = new FileReader($filePath);
-        $this->_magic = $reader->read($reader->getSize());
+        $this->magic = $reader->read($reader->getSize());
     }
 
     /**
@@ -96,7 +113,7 @@ final class Magic
         $regexp = "/^(?P<Dependant>>?)(?P<Byte>\\d+)\\s+(?P<MatchType"
                 . ">\\S+)\\s+(?P<MatchData>\\S+)(?:\\s+(?P<MIMEType>[a-"
                 . "z]+\\/[a-z-0-9]+)?(?:\\s+(?P<Description>.?+))?)?$/";
-        foreach (preg_split('/^/m', $this->_magic) as $line) {
+        foreach (preg_split('/^/m', $this->magic) as $line) {
             $chunks = array();
             if (!preg_match($regexp, $line, $chunks)) {
                 continue;
