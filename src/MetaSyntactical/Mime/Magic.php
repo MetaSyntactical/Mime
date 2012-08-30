@@ -84,7 +84,7 @@ final class Magic
      */
     public function __construct($filePath = null)
     {
-        $filePath = $filePath ?: self::$defaultMagicFile ?: __DIR__ . '/Data/magic';
+        $filePath = $filePath ?: self::$defaultMagicFile ?: __DIR__ . '/_Data/magic';
         if (!file_exists($filePath)) {
             throw new FileNotFoundException('File does not exist or is not readable: ' . $filePath);
         }
