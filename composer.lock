@@ -1,11 +1,9 @@
 {
-    "hash": "d160df99007937fdc52a5102eafba052",
+    "hash": "ffa7718746a624de289894cd2d02cfb1",
     "packages": [
         {
             "package": "metasyntactical/io",
-            "version": "dev-master",
-            "source-reference": "b20aadb8c4c1e8bd750effb31642a99d2bbe6c4f",
-            "commit-date": "1345819391"
+            "version": "1.0.0"
         }
     ],
     "packages-dev": null,
@@ -13,7 +11,7 @@
 
     ],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "metasyntactical/io": 20
-    }
+    "stability-flags": [
+
+    ]
 }

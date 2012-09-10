@@ -17,7 +17,7 @@
     ],
     "require": {
         "php": ">=5.3.10",
-        "metasyntactical/io": "dev-master"
+        "metasyntactical/io": "1.0.x"
     },
     "autoload": {
         "psr-0": {
