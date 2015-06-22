@@ -112,7 +112,7 @@ final class Magic
         $parentOffset = 0;
         $regexp = "/^(?P<Dependant>>?)(?P<Byte>\\d+)\\s+(?P<MatchType"
                 . ">\\S+)\\s+(?P<MatchData>\\S+)(?:\\s+(?P<MIMEType>[a-"
-                . "z]+\\/[a-z-0-9]+)?(?:\\s+(?P<Description>.?+))?)?$/";
+                . "z]+\\/[a-z-0-9\.]+)?(?:\\s+(?P<Description>.?+))?)?$/";
         foreach (preg_split('/^/m', $this->magic) as $line) {
             $chunks = array();
             if (!preg_match($regexp, $line, $chunks)) {

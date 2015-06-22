@@ -26,3 +26,7 @@
 # JPEG images
 0	beshort		0xffd8		image/jpeg
 
+# Adobe InDesign IDML Package
+0	string      PK
+>30 string      mimetype
+>0  string      application/vnd.adobe.indesign-idml-package application/vnd.adobe.indesign-idml-package
