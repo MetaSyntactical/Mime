@@ -9,7 +9,7 @@
          processIsolation="false"
          stopOnFailure="false"
          syntaxCheck="false"
-         bootstrap="autoload.php.dist"
+         bootstrap="tests/autoload.php"
         >
     <php>
         <ini name="intl.default_locale" value="en"/>
@@ -17,7 +17,7 @@
 
     <testsuites>
         <testsuite name="MetaSyntactical/Mime Testsuite">
-            <directory>./src/MetaSyntactical/*/Tests/</directory>
+            <directory>./tests/MetaSyntactical/</directory>
         </testsuite>
     </testsuites>
 
@@ -30,9 +30,6 @@
     <filter>
         <whitelist>
             <directory>./src/MetaSyntactical/</directory>
-            <exclude>
-                <directory>./src/MetaSyntactical/*/Tests</directory>
-            </exclude>
         </whitelist>
     </filter>
 </phpunit>
