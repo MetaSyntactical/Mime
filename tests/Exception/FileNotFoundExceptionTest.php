@@ -2,6 +2,8 @@
 
 namespace MetaSyntactical\Mime\Exception;
 
+use RuntimeException;
+
 class FileNotFoundExceptionTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -28,7 +30,7 @@ class FileNotFoundExceptionTest extends \PHPUnit_Framework_TestCase
 
     public function testThatClassProvidesTheExpectedInterfaces()
     {
-        self::assertInstanceOf('\\RuntimeException', $this->object);
-        self::assertInstanceOf('\\MetaSyntactical\\Mime\\Exception\\Exception', $this->object);
+        self::assertInstanceOf(RuntimeException::class, $this->object);
+        self::assertInstanceOf(Exception::class, $this->object);
     }
 }
