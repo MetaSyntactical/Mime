@@ -58,9 +58,9 @@ class MagicTest extends \PHPUnit_Framework_TestCase
      */
     public function testDefaultMagicFileIsUsedOnInitialization()
     {
-        Magic::setDefaultMagicFile(__DIR__.'/_Data/magic');
+        Magic::setDefaultMagicFile(__DIR__ . '/_Data/magic');
         $magic = new Magic();
-        self::assertNull($magic->getMimeType(__DIR__.'/_Data/magic'));
+        self::assertNull($magic->getMimeType(__DIR__ . '/_Data/magic'));
     }
 
     /**
@@ -70,12 +70,12 @@ class MagicTest extends \PHPUnit_Framework_TestCase
     {
         self::assertEquals(
             'image/jpeg',
-            $this->object->getMimeType(__DIR__.'/_Data/Fireworks_Australia_Day_11_-_2_(Public_Domain).jpg')
+            $this->object->getMimeType(__DIR__ . '/_Data/Fireworks_Australia_Day_11_-_2_(Public_Domain).jpg')
         );
 
-        $smallMagic = new Magic(__DIR__.'/_Data/magic');
-        self::assertNull($smallMagic->getMimeType(__DIR__.'/_Data/magic'));
-        self::assertNull($this->object->getMimeType(__DIR__.'/_Data/magic'));
+        $smallMagic = new Magic(__DIR__ . '/_Data/magic');
+        self::assertNull($smallMagic->getMimeType(__DIR__ . '/_Data/magic'));
+        self::assertNull($this->object->getMimeType(__DIR__ . '/_Data/magic'));
     }
 
     /**
@@ -84,9 +84,9 @@ class MagicTest extends \PHPUnit_Framework_TestCase
     public function testCheckingFilesHaveExpectedMimeTypes()
     {
         self::assertTrue(
-            $this->object->isMimeType(__DIR__.'/_Data/Fireworks_Australia_Day_11_-_2_(Public_Domain).jpg', 'image/jpeg')
+            $this->object->isMimeType(__DIR__ . '/_Data/Fireworks_Australia_Day_11_-_2_(Public_Domain).jpg', 'image/jpeg')
         );
-        $fileArray = array(__DIR__.'/_Data/Fireworks_Australia_Day_11_-_2_(Public_Domain).jpg');
+        $fileArray = array(__DIR__ . '/_Data/Fireworks_Australia_Day_11_-_2_(Public_Domain).jpg');
         self::assertEquals(array(true), $this->object->isMimeType($fileArray, 'image/jpeg'));
     }
 }

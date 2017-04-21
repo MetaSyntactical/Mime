@@ -3,26 +3,29 @@
     "type": "library",
     "description": "The MetaSyntactical MIMEtype detection component",
     "keywords": ["library", "mime"],
-    "homepage": "http://syntactical-sugar.com/projects/mime",
     "license": "MIT",
     "authors": [
         {
             "name": "Daniel Kreuer",
-            "email": "dk@metasyntactical.com"
-        },
-        {
-            "name": "MetaSyntactical Community",
-            "homepage": "http://syntactical-sugar.com/contributors"
+            "email": "d.kreuer@danielkreuer.com"
         }
     ],
     "require": {
-        "php": ">=5.3.10",
-        "metasyntactical/io": "1.0.x"
+        "php": ">=5.6.28, <7.2.0",
+        "metasyntactical/io": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7"
     },
     "autoload": {
         "psr-0": {
             "MetaSyntactical": "src/"
         }
     },
-    "minimum-stability": "dev"
+    "autoload-dev": {
+        "psr-0": {
+            "MetaSyntactical": "tests/"
+        }
+    },
+    "minimum-stability": "stable"
 }
