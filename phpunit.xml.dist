@@ -17,7 +17,7 @@
 
     <testsuites>
         <testsuite name="MetaSyntactical/Mime Testsuite">
-            <directory>./tests/MetaSyntactical/</directory>
+            <directory>./tests/</directory>
         </testsuite>
     </testsuites>
 
@@ -29,7 +29,7 @@
 
     <filter>
         <whitelist>
-            <directory>./src/MetaSyntactical/</directory>
+            <directory>./src/</directory>
         </whitelist>
     </filter>
 </phpunit>

@@ -18,13 +18,13 @@
         "phpunit/phpunit": "^5.7"
     },
     "autoload": {
-        "psr-0": {
-            "MetaSyntactical": "src/"
+        "psr-4": {
+            "MetaSyntactical\\Mime\\": "src/"
         }
     },
     "autoload-dev": {
-        "psr-0": {
-            "MetaSyntactical": "tests/"
+        "psr-4": {
+            "MetaSyntactical\\Mime\\": "tests/"
         }
     },
     "minimum-stability": "stable"
