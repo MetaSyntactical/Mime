@@ -22,18 +22,11 @@ MetaSyntactical/Mime is only supported on PHP 5.6.28 and up.
 Installation
 ------------
 
-COMING SOON
 The best way to install MetaSyntactical/Mime is to use Composer (http://getcomposer.org).
-
-Documentation
--------------
-
-COMING SOON
 
 Contributing
 ------------
 
-COMING SOON
 MetaSyntactical/Mime is an open source project.
 
 [1]: http://framework.zend.com/wiki/x/9lI
