@@ -127,17 +127,14 @@ final class Magic
             }
 
             $matchType = strtolower($chunks['MatchType']);
-            $matchData = preg_replace(
-                array("/\\\\ /",
-                      "/\\\\\\\\/",
-                      "/\\\\([0-7]{1,3})/e",
-                      "/\\\\x([0-9A-Fa-f]{1,2})/e",
-                      "/0x([0-9A-Fa-f]+)/e"),
-                array(" ",
-                      "\\\\",
-                      "pack(\"H*\", base_convert(\"$1\", 8, 16));",
-                      "pack(\"H*\", \"$1\");",
-                      "hexdec(\"$1\");"),
+            $matchData = preg_replace_callback_array(
+                [
+                    "/\\\\ /" => function() { return " "; },
+                    "/\\\\\\\\/" => function() { return "\\\\"; },
+                    "/\\\\([0-7]{1,3})/" => function($match) { return pack("H*", base_convert($match[1], 8, 16)); },
+                    "/\\\\x([0-9A-Fa-f]{1,2})/" => function ($match) { return pack("H*", $match[1]); },
+                    "/0x([0-9A-Fa-f]+)/" => function ($match) { return hexdec($match[1]); },
+                ],
                 $chunks["MatchData"]
             );
 
@@ -194,9 +191,9 @@ final class Magic
      * Returns the results of the mime type check either as a boolean or an
      * array of boolean values.
      *
-     * @param string|Array $filename The file path whose type to test.
-     * @param string|Array $mimeType The mime type to test against.
-     * @return boolean|Array
+     * @param string|array $filename The file path whose type to test.
+     * @param string|array $mimeType The mime type to test against.
+     * @return boolean|array
      */
     public function isMimeType($filename, $mimeType)
     {
