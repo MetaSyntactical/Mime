@@ -1,9 +1,8 @@
 <?php
-
 /*
  * This file is part of the MetaSyntactical/Mime component.
  *
- * (c) Daniel Kreuer <dk@metasyntactical.com>
+ * (c) Daniel Kreuer <d.kreuer@danielkreuer.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,9 +10,8 @@
 
 namespace MetaSyntactical\Mime;
 
-use \MetaSyntactical\Mime\Exception\FileNotFoundException;
-
-use \MetaSyntactical\Io\FileReader;
+use MetaSyntactical\Io\FileReader;
+use MetaSyntactical\Mime\Exception\FileNotFoundException;
 
 /**
  * This class is used to classify the given file using some magic bytes
@@ -46,7 +44,7 @@ use \MetaSyntactical\Io\FileReader;
  *  o <b>4</b> -- file description/MIME type if matched
  *  o <b>5</b> -- optional MIME encoding if matched and if above was a MIME type
  *
- * @author Daniel Kreuer <dk@metasyntactical.com>
+ * @author Daniel Kreuer <d.kreuer@danielkreuer.com>
  */
 final class Magic
 {
