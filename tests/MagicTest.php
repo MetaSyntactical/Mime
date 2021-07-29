@@ -62,7 +62,5 @@ class MagicTest extends TestCase
         self::assertTrue(
             $this->object->isMimeType(__DIR__ . '/_Data/Fireworks_Australia_Day_11_-_2_(Public_Domain).jpg', 'image/jpeg')
         );
-        $fileArray = array(__DIR__ . '/_Data/Fireworks_Australia_Day_11_-_2_(Public_Domain).jpg');
-        self::assertEquals(array(true), $this->object->isMimeType($fileArray, 'image/jpeg'));
     }
 }

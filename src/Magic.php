@@ -107,6 +107,9 @@ final class Magic
                 . ">\\S+)\\s+(?P<MatchData>\\S+)(?:\\s+(?P<MIMEType>[a-"
                 . "z]+\\/[a-z-0-9\.]+)?(?:\\s+(?P<Description>.?+))?)?$/";
         foreach (preg_split('/^/m', $this->magic) as $line) {
+            /**
+             * @psalm-var array<'Dependant'|'Byte'|'MatchType'|'MatchData'|'MIMEType'|'Description', string|null> $chunks
+             */
             $chunks = array();
             if (!preg_match($regexp, $line, $chunks)) {
                 continue;
@@ -114,61 +117,40 @@ final class Magic
 
             if ($chunks['Dependant']) {
                 $reader->setOffset($parentOffset);
-                $reader->skip($chunks['Byte']);
+                $reader->skip((int) $chunks['Byte']);
             } else {
-                $reader->setOffset($parentOffset = $chunks['Byte']);
+                $reader->setOffset($parentOffset = (int) $chunks['Byte']);
             }
 
             $matchType = strtolower($chunks['MatchType']);
+            /** @psalm-var array<string, callable(array<array-key, mixed>):string> $patterns */
+            $patterns = [
+                "/\\\\ /" => function(): string { return " "; },
+                "/\\\\\\\\/" => function(): string { return "\\\\"; },
+                "/\\\\([0-7]{1,3})/" => /** @param string[] $match */ function(array $match): string { return pack("H*", base_convert($match[1], 8, 16)); },
+                "/\\\\x([0-9A-Fa-f]{1,2})/" => /** @param string[] $match */ function (array $match): string { return pack("H*", $match[1]); },
+                "/0x([0-9A-Fa-f]+)/" => /** @param string[] $match */ function (array $match): string { return (string) hexdec($match[1]); },
+            ];
+            /** @psalm-var string $matchData */
             $matchData = preg_replace_callback_array(
-                [
-                    "/\\\\ /" => function() { return " "; },
-                    "/\\\\\\\\/" => function() { return "\\\\"; },
-                    "/\\\\([0-7]{1,3})/" => function($match) { return pack("H*", base_convert($match[1], 8, 16)); },
-                    "/\\\\x([0-9A-Fa-f]{1,2})/" => function ($match) { return pack("H*", $match[1]); },
-                    "/0x([0-9A-Fa-f]+)/" => function ($match) { return hexdec($match[1]); },
-                ],
+                $patterns,
                 $chunks["MatchData"]
             );
 
-            switch ($matchType) {
-                case 'byte':    // single character
-                    $data = $reader->readInt8();
-                    break;
-                case 'short':   // machine-order 16-bit integer
-                    $data = $reader->readInt16();
-                    break;
-                case 'long':    // machine-order 32-bit integer
-                    $data = $reader->readInt32();
-                    break;
-                case 'string':  // arbitrary-length string
-                    $data = $reader->readString8(strlen($matchData));
-                    break;
-                case 'date':    // long integer date (seconds since Unix epoch)
-                    $data = $reader->readInt64BE();
-                    break;
-                case 'beshort': // big-endian 16-bit integer
-                    $data = $reader->readUInt16BE();
-                    break;
-                case 'belong':  // big-endian 32-bit integer
-                    // break intentionally omitted
-                case 'bedate':  // big-endian 32-bit integer date
-                    $data = $reader->readUInt32BE();
-                    break;
-                case 'leshort': // little-endian 16-bit integer
-                    $data = $reader->readUInt16LE();
-                    break;
-                case 'lelong':  // little-endian 32-bit integer
-                    // break intentionally omitted
-                case 'ledate':  // little-endian 32-bit integer date
-                    $data = $reader->readUInt32LE();
-                    break;
-                default:
-                    $data = null;
-                    break;
-            }
+            $data = match ($matchType) {
+                'byte' => $reader->readInt8(),
+                'short' => $reader->readInt16(),
+                'long' => $reader->readInt32(),
+                'string' => $reader->readString8(strlen($matchData)),
+                'date' => $reader->readInt64BE(),
+                'beshort' => $reader->readUInt16BE(),
+                'belong', 'bedate' => $reader->readUInt32BE(),
+                'leshort' => $reader->readUInt16LE(),
+                'lelong', 'ledate' => $reader->readUInt32LE(),
+                default => null,
+            };
 
-            if (strcmp($data, $matchData) == 0) {
+            if (strcmp((string) $data, $matchData) === 0) {
                 if (!empty($chunks['MIMEType'])) {
                     return $chunks['MIMEType'];
                 }
@@ -181,23 +163,10 @@ final class Magic
     }
 
     /**
-     * Returns the results of the mime type check either as a boolean or an
-     * array of boolean values.
-     *
-     * @param string|array $filename The file path whose type to test.
-     * @param string|array $mimeType The mime type to test against.
-     * @return boolean|array
+     * Returns the results of the mime type check.
      */
-    public function isMimeType($filename, $mimeType)
+    public function isMimeType(string $filename, string $mimeType): bool
     {
-        if (is_array($filename)) {
-            $result = array();
-            foreach ($filename as $key => $value) {
-                $result[] = $this->getMimeType($value) === (is_array($mimeType) ? $mimeType[$key] : $mimeType);
-            }
-            return $result;
-        }
-
-        return $this->getMimeType($filename) === $mimeType ? true : false;
+        return $this->getMimeType($filename) === $mimeType;
     }
 }
