@@ -1,8 +1,9 @@
 <?php
 
-namespace MetaSyntactical\Mime;
+namespace MetaSyntactical\Mime\Tests;
 
 use MetaSyntactical\Mime\Exception\FileNotFoundException;
+use MetaSyntactical\Mime\Magic;
 use PHPUnit\Framework\TestCase;
 
 class MagicTest extends TestCase

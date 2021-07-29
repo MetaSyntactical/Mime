@@ -1,10 +1,13 @@
 <?php
 
-namespace MetaSyntactical\Mime\Exception;
+namespace MetaSyntactical\Mime\Tests\Exception;
 
+use Exception;
+use MetaSyntactical\Mime\Exception\FileNotFoundException;
+use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
-class FileNotFoundExceptionTest extends \PHPUnit_Framework_TestCase
+class FileNotFoundExceptionTest extends TestCase
 {
     /**
      * @var FileNotFoundException
@@ -15,17 +18,9 @@ class FileNotFoundExceptionTest extends \PHPUnit_Framework_TestCase
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->object = new FileNotFoundException;
-    }
-
-    /**
-     * Tears down the fixture, for example, closes a network connection.
-     * This method is called after a test is executed.
-     */
-    protected function tearDown()
-    {
     }
 
     public function testThatClassProvidesTheExpectedInterfaces()

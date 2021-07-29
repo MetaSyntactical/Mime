@@ -1,0 +1,12 @@
+{
+  "source": {
+    "directories": [
+      "src"
+    ]
+  },
+  "logs": {
+    "text": "php://stderr"
+  },
+  "minMsi": 94,
+  "minCoveredMsi": 100
+}
