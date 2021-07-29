@@ -2,7 +2,9 @@
 
 namespace MetaSyntactical\Mime\Exception;
 
-interface Exception
+use Throwable;
+
+interface Exception extends Throwable
 {
 
 }
