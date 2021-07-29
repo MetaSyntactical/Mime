@@ -49,22 +49,21 @@ use MetaSyntactical\Mime\Exception\FileNotFoundException;
 final class Magic
 {
     /**
-     * @var string Magic Numbers data
+     * Magic Numbers data
      */
-    private $magic;
+    private string $magic;
 
     /**
-     * @var string Path to default magic file
+     * Path to default magic file
      */
-    private static $defaultMagicFile;
+    private static ?string $defaultMagicFile = null;
 
     /**
      * Inject default magic file to be used on instantiating class.
      *
-     * @param string $filePath path to the magic file to be used, defaults to shipped data file
      * @throws Exception\FileNotFoundException if specified filePath does not exist or is not readable
      */
-    public static function setDefaultMagicFile($filePath = null)
+    public static function setDefaultMagicFile(string $filePath = null): void
     {
         if (!is_null($filePath) && !file_exists($filePath)) {
             throw new FileNotFoundException('File does not exist or is not readable: ' . $filePath);
@@ -77,12 +76,11 @@ final class Magic
      *
      * Reads the magic information from given magic file.
      *
-     * @param string $filePath path to the magic file to be used, defaults to shipped data file
      * @throws FileNotFoundException if specified filePath does not exist or is not readable
      */
-    public function __construct($filePath = null)
+    public function __construct(?string $filePath = null)
     {
-        $filePath = $filePath ?: self::$defaultMagicFile ?: __DIR__ . '/_Data/magic';
+        $filePath = $filePath ?: self::$defaultMagicFile ?: (__DIR__ . '/_Data/magic');
         if (!file_exists($filePath)) {
             throw new FileNotFoundException('File does not exist or is not readable: ' . $filePath);
         }
@@ -99,11 +97,8 @@ final class Magic
      * If the type could not be found, the function returns the default value,
      * or <var>null</var>.
      *
-     * @param string $filename The file path whose type to determine.
-     * @param string $default  The default value.
-     * @return string|boolean
      */
-    public function getMimeType($filename, $default = null)
+    public function getMimeType(string $filename, string $default = null): ?string
     {
         $reader = new FileReader($filename);
 
@@ -198,13 +193,11 @@ final class Magic
         if (is_array($filename)) {
             $result = array();
             foreach ($filename as $key => $value) {
-                $result[] = ($this->getMimeType($value) == (is_array($mimeType) ? $mimeType[$key] : $mimeType))
-                            ? true
-                            : false;
+                $result[] = $this->getMimeType($value) === (is_array($mimeType) ? $mimeType[$key] : $mimeType);
             }
             return $result;
-        } else {
-            return $this->getMimeType($filename) == $mimeType ? true : false;
         }
+
+        return $this->getMimeType($filename) === $mimeType ? true : false;
     }
 }

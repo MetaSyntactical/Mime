@@ -2,7 +2,9 @@
 
 namespace MetaSyntactical\Mime\Exception;
 
-class FileNotFoundException extends \RuntimeException implements Exception
+use RuntimeException;
+
+class FileNotFoundException extends RuntimeException implements Exception
 {
 
 }
